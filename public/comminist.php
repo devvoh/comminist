@@ -26,7 +26,7 @@ if(isset($argv[1]) && $argv[1] === 'init') {
     $config .= '    }' . PHP_EOL;
     $config .= '}';
     
-    file_put_contents('comminist.config.json', $config);
+    file_put_contents('./comminist.config.json', $config);
     die('blank comminist.config.json generated.' . PHP_EOL );
 }
 
@@ -77,17 +77,28 @@ class Communist
                     // Get file content
                     $temp = file_get_contents($params->src);
                     
+                    $lengthBefore = strlen($temp);
+                    
                     // Remove comments
                     $temp = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $temp);
                     // Remove space after colons
                     $temp = str_replace(': ', ':', $temp);
                     // Remove whitespace
                     $temp = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $temp);
+
+                    $lengthAfter = strlen($temp);
+                    
+                    if($lengthBefore > 0) {
+                        $percentage = number_format(
+                            100 - (100 / $lengthBefore) * $lengthAfter,
+                            2
+                        );
+                    }
                     
                     // And save
                     file_put_contents($params->dest, $temp);
                     
-                    $this->debug('minified... ' . $params->dest);
+                    $this->debug('minified... ' . $params->dest . ' saved ' . $percentage . '%...');
                 break;
                 
                 case 'delete':
