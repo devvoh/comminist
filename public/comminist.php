@@ -57,7 +57,11 @@ class Communist
         if (is_file($this->configFilename)) {
             echo 'comminist.config.json found, executing...' . PHP_EOL . PHP_EOL;
             $this->config = json_decode(file_get_contents('./' . $this->configFilename));
-            $this->execute();
+            if ($this->config !== null) {
+                $this->execute();
+            } else {
+                die('ERROR: comminist.config.json invalid, check the configuration markup.' . PHP_EOL);
+            }
         } else {
             die('ERROR: no comminist.config.json file found, run \'comminist init\' to generate a blank one.' . PHP_EOL);
         }
