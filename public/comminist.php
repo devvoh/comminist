@@ -29,6 +29,7 @@ if (isset($argv[1]) && $argv[1] === 'init') {
     );
     
     $config = json_encode($config, JSON_PRETTY_PRINT);
+    $config = str_replace('\/', '/', $config);
     file_put_contents('./comminist.config.json', $config);
     // Die before we run this broken example config
     die('blank comminist.config.json generated.' . PHP_EOL);
