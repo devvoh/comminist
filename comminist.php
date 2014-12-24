@@ -107,8 +107,6 @@ class Communist
                     
                     // Remove comments
                     $temp = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $temp);
-                    // Remove space after colons
-                    $temp = str_replace(': ', ':', $temp);
                     // Remove whitespace
                     $temp = preg_replace('/\s+/', '', $temp);
                     
