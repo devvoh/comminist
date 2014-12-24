@@ -3,7 +3,9 @@
 /**
  * Communist - php css combiner/minifier
  * 
- * devvoh, 2014
+ * By devvoh, 2014, MIT licensed
+ * 
+ * https://github.com/devvoh/comminist
  */
 
 // Check for parameters
@@ -108,15 +110,7 @@ class Communist
                     // Remove space after colons
                     $temp = str_replace(': ', ':', $temp);
                     // Remove whitespace
-                    $temp = str_replace(array(
-                        "\r\n",
-                        "\r",
-                        "\n",
-                        "\t",
-                        '  ',
-                        '    ',
-                        '    '
-                    ), '', $temp);
+                    $temp = preg_replace('/\s+/', '', $temp);
                     
                     $lengthAfter = strlen($temp);
                     
