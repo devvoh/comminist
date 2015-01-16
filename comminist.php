@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Communist - php css combiner/minifier
+ * Comminist - php css combiner/minifier
  * 
  * By devvoh, 2014, MIT licensed
  * 
@@ -38,9 +38,9 @@ if (isset($argv[1]) && $argv[1] === 'init') {
 }
 
 // Actually instantiate & run class
-$cm = new Communist();
+$cm = new Comminist();
 
-class Communist
+class Comminist
 {
 
     protected $version = '0.1.0';
