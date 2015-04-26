@@ -1,4 +1,4 @@
-comminist 0.1
+comminist
 =========
 
 A command-line CSS combiner/minifier in php.
