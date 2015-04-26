@@ -89,7 +89,7 @@ class Comminist
         }
         // And save
         file_put_contents($params->dest, $temp);
-        $this->addMessage('combined... ' . $params->dest);
+        $this->addMessage('  combined... ' . $params->dest);
     }
 
     public function minify($params) {
