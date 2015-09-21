@@ -2,9 +2,9 @@
 <?php
 /**
  * Comminist - php css combiner/minifier
- * 
+ *
  * By devvoh, 2014, MIT licensed
- * 
+ *
  * https://github.com/devvoh/comminist
  */
 
@@ -39,7 +39,7 @@ class Comminist
                 'src' => './combined.css'
             )
         );
-        
+
         $config = json_encode($config, JSON_PRETTY_PRINT);
         $config = str_replace('\/', '/', $config);
         file_put_contents('./comminist.config.json', $config);
@@ -71,13 +71,13 @@ class Comminist
             $this->addError('no comminist.config.json file found, run \'comminist init\' to generate a blank one.');
             return false;
         }
-        
+
         return $this->config;
     }
 
     public function combine($params) {
         $temp = null;
-        
+
         // Loop and store in memory
         foreach ($params->src as $filename) {
             if (file_exists($filename)) {
@@ -97,22 +97,22 @@ class Comminist
         if (file_exists($params->src)) {
             $temp = file_get_contents($params->src);
         } else {
-            $this->addError('to be minified file ' . $filename . ' does not exist.');
+            $this->addError('to be minified file ' . $params->src . ' does not exist.');
             $this->stop();
         }
-        
+
         // Get the length before minification
         $lengthBefore = strlen($temp);
-        
+
         // Remove comments
         $temp = preg_replace('!/\*.*?\*/!s','', $temp);
         $temp = preg_replace('/\n\s*\n/',"\n", $temp);
-        
+
         // Remove spaces
         $temp = preg_replace('/[\n\r \t]/',' ', $temp);
         $temp = preg_replace('/ +/',' ', $temp);
         $temp = preg_replace('/ ?([,:;{}]) ?/','$1', $temp);
-        
+
         // Remove trailing ;
         $temp = preg_replace('/;}/','}', $temp);
 
@@ -141,7 +141,19 @@ class Comminist
             $this->addError('couldn\'t delete ' . $params->src . ' because it didn\'t exist...');
         }
     }
-    
+
+    public function replace($params) {
+        // Get file content
+        if (file_exists($params->src)) {
+            $temp = file_get_contents($params->src);
+            $temp = str_replace($params->from, $params->to, $temp);
+            file_put_contents($params->src, $temp);
+        } else {
+            $this->addError('file ' . $params->src . ' to replace in does not exist.');
+            $this->stop();
+        }
+    }
+
     public function stop()
     {
         echo PHP_EOL;
